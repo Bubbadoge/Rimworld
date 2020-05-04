@@ -247,13 +247,11 @@
             };
 
             var modData = [];
-            $.each(data.items, function(index, value) {
-                if (value["name"] > 0) {
-                    itemData.push(value);
-                }
+            $.each(data.linkitems, function(index, value) {
+                    modData.push(value);
             });
 
-            modList = new List('items', options, itemData);
+            modList = new List('mods', options, modData);
         });
 
         let itemList = null;
