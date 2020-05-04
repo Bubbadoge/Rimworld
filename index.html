@@ -14,7 +14,7 @@
     <script type="text/javascript">
         const itemListURL = "https://raw.githubusercontent.com/Bubbadoge/Rimworld/master/StoreItems.json";
         const eventListURL = "https://raw.githubusercontent.com/Bubbadoge/Rimworld/master/StoreEvents.json";
-	const modistURL = "https://raw.githubusercontent.com/Bubbadoge/Rimworld/master/Modlist.json";
+	const modListURL = "https://raw.githubusercontent.com/Bubbadoge/Rimworld/master/Modlist.json";
 	const traitListURL = "https://raw.githubusercontent.com/Bubbadoge/Rimworld/master/traits.json";
     </script>
 </head>
@@ -68,6 +68,12 @@
                                     </button>
                                     <button class="btn btn-success" ng-class="{'active': (selected == '2')}" ng-click="selected=2">
                                         Events
+                                    </button>
+					<button class="btn btn-success" ng-class="{'active': (selected == '3')}" ng-click="selected=3">
+                                       	 Mods
+                                    </button>
+					<button class="btn btn-success" ng-class="{'active': (selected == '4')}" ng-click="selected=4">
+                                       	 Traits
                                     </button>
                                 </div>
                                 <div class="form-group row">
@@ -208,6 +214,23 @@
         }
     </style>
     <script type="text/javascript">
+	let modList = null;
+        $.getJSON(modListURL, function(data) {
+            var options = {
+                valueNames: ['author', 'name', 'steamId'],
+                item: '<tr><td class="author" scope="row"></td><td class="name"></td><td class="steamId"></td></tr>'
+            };
+
+            var modData = [];
+            $.each(data.items, function(index, value) {
+                if (value["name"] > 0) {
+                    itemData.push(value);
+                }
+            });
+
+            itemList = new List('items', options, itemData);
+        });
+
         let itemList = null;
         $.getJSON(itemListURL, function(data) {
             var options = {
