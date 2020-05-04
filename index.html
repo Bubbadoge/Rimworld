@@ -173,6 +173,31 @@
                         </div>
                     </div>
                 </div>
+		<div class="row" ng-show="selected == 4">
+                    <div class="col-md-12">
+                        <div id="traits">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Search</span>
+                                </div>
+                                <input type="text" class="form-control search" aria-label="Search" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <p>
+                                <button type="button" class="btn btn-primary sort" data-sort="abr">
+                                    Sort
+                                </button>
+                            </p>
+                            <table class="table traits">
+                                <tbody><tr>
+                                    <th scope="col" class="sort" data-sort="author">Author</th>
+                                    <th scope="col" class="sort" data-sort="name">Name</th>
+                                    <th scope="col" class="sort" data-sort="steamId">SteamID</th>
+                                </tr>
+				    </tbody><tbody class="list"></tbody>
+			 </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="container">
@@ -239,6 +264,20 @@
         }
     </style>
     <script type="text/javascript">
+	    let traitList = null;
+        $.getJSON(traitListURL, function(data) {
+            var options = {
+                valueNames: ['addPrice', 'defName', 'description'],
+                item: '<tr><td class="addPrice" scope="row"></td><td class="defName"></td><td class="description"></td></tr>'
+            };
+
+            var traitData = [];
+            $.each(data.inkitems, function(index, value) {
+                    traitData.push(value);
+            });
+
+            traitList = new List('traits', options, traitData);
+        });
 	let modList = null;
         $.getJSON(modListURL, function(data) {
             var options = {
